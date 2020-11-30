@@ -1,23 +1,13 @@
 import { GraphQLServer } from "graphql-yoga";
+import logger from "morgan";
+
+import schema from "./schema";
 
 require('dotenv').config();
 
-const typeDefs = `
-    type Query {
-        hello: String!
-    }
-`;
+const server = new GraphQLServer({ schema });
 
-const resolvers = {
-    Query: {
-        hello: () => "Hi"
-    }
-};
-
-const server = new GraphQLServer({
-    typeDefs,
-    resolvers
-});
+server.express.use(logger('dev'));
 
 const PORT = process.env.PORT || 4000;
 
