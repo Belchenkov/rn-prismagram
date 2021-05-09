@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server');
+import { ApolloServer, gql } from 'apollo-server';
 
 // The GraphQL schema
 const typeDefs = gql`
@@ -9,7 +9,7 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        hello: () => 'world',
+        hello: () => 'Hello World!!!',
     },
 };
 
