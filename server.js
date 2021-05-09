@@ -2,15 +2,38 @@ import { ApolloServer, gql } from 'apollo-server';
 
 // The GraphQL schema
 const typeDefs = gql`
+  type Movie {
+    title: String
+    year: Int
+  }  
   type Query {
-    hello: String
+    movies: [Movie]
+    movie: Movie
+  }
+  type Mutation {
+    createMovie(title: String!): Boolean
+    deleteMovie(title: String!): Boolean
   }
 `;
 
 const resolvers = {
     Query: {
-        hello: () => 'Hello World!!!',
+        movies: () => [],
+        movie: () => ({
+            title: "Titanic",
+            year: 2021
+        }),
     },
+    Mutation: {
+        createMovie: (_, { title }) => {
+            console.log(title);
+            return true;
+        },
+        deleteMovie: (_, { title }) => {
+            console.log(title);
+            return true;
+        },
+    }
 };
 
 const server = new ApolloServer({
